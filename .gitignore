@@ -1,0 +1,14 @@
+Debug/obj/*
+.vscode/*
+Debug/ppc.elf
+Debug/ppc.map
+Debug/system.orti
+.cproject
+
+.project
+*.log
+*.a
+*.cmm
+*.men
+Debug/exec_lauterbach.sh
+Debug/make_launcher.bat

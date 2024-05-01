@@ -1,0 +1,321 @@
+/* ###*B*###
+ * ERIKA Enterprise - a tiny RTOS for small microcontrollers
+ *
+ * Copyright (C) 2002-2008  Evidence Srl
+ *
+ * This file is part of ERIKA Enterprise.
+ *
+ * ERIKA Enterprise is free software; you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License
+ * version 2 as published by the Free Software Foundation, 
+ * (with a special exception described below).
+ *
+ * Linking this code statically or dynamically with other modules is
+ * making a combined work based on this code.  Thus, the terms and
+ * conditions of the GNU General Public License cover the whole
+ * combination.
+ *
+ * As a special exception, the copyright holders of this library give you
+ * permission to link this code with independent modules to produce an
+ * executable, regardless of the license terms of these independent
+ * modules, and to copy and distribute the resulting executable under
+ * terms of your choice, provided that you also meet, for each linked
+ * independent module, the terms and conditions of the license of that
+ * module.  An independent module is a module which is not derived from
+ * or based on this library.  If you modify this code, you may extend
+ * this exception to your version of the code, but you are not
+ * obligated to do so.  If you do not wish to do so, delete this
+ * exception statement from your version.
+ *
+ * ERIKA Enterprise is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License version 2 for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * version 2 along with ERIKA Enterprise; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA.
+ * ###*E*### */
+
+CPU test_application {
+
+	OS EE {
+		EE_OPT = "DEBUG";
+		EE_OPT = "__CODEWARRIOR__";
+//		EE_OPT = "__SPE__";
+		EE_OPT = "EE_ISR_DYNAMIC_TABLE";
+ 		EE_OPT= "EE_SYSTEM_TIMER_DEVICE_DECREMENTER";
+        EE_OPT = "__USE_CUSTOM_LINKER_SCRIPT__";
+        //EE_OPT = "EE_SUPPORT_MEMMAP_H";
+        LDFLAGS = "-lcf ../Project_Settings/Linker_Files/MPC5644A_FLASH.lcf";
+		EE_OPT = "__USE_CUSTOM_CRT0__";
+		CFLAGS = "-warn illpragmas -warn unwanted -warn extended -warn hidevirtual -warn implicitconv -warn impl_int2float -warn impl_float2int -warn impl_signedunsigned -warn ptrintconv -warn unusedarg -warn unusedvar -warn missingreturn -warn unusedexpr -warn extracomma -warn emptydecl -warn structclass -warn filecaps -warn sysfilecaps -warn undefmacro";
+		CFLAGS = "-inline on -inline nobottomup -align powerpc -func_align 4  -pooldata on -use_lmw_stmw on";
+		CFLAGS = "-I../src/";
+		CFLAGS = "-I../Project_Headers";
+//		library include recursive
+		CFLAGS = "-ir ../src/BSW";
+		CFLAGS = "-ir ../src/ASW";
+		CFLAGS = "-ir ../src/IL";
+		CFLAGS = "-ir ../src/Utils";
+		CFLAGS = "-ir ../src/ASW/Sensors";
+		LDFLAGS = "-romaddr 0x00040000 -rambuffer 0x00040000 -code_merging safe -model absolute -sym full -msgstyle parseable";
+		ASFLAGS = "";
+		LDFLAGS = "";
+
+		CPU_DATA = PPCE200ZX {
+		 	CPU_CLOCK = 120.0;	
+			MODEL = E200Z4;
+			APP_SRC = "src/main.c";
+			
+
+//			Start-up
+			APP_SRC = "src/ee_boot.c";
+
+//			OS
+			APP_SRC = "src/BSW/OS/OS_Task.c";
+			APP_SRC = "src/BSW/OS/InitHW.c";
+			APP_SRC = "src/IL/IL_Tasks.c";
+			APP_SRC = "src/BSW/BSW_Tasks.c";
+			APP_SRC = "src/ASW/ASW_Tasks.c";
+//			Drivers
+			APP_SRC = "src/BSW/HAL/FMPLL/fmpll.c";
+			APP_SRC = "src/BSW/HAL/GPIO/gpio.c";
+			APP_SRC = "src/BSW/HAL/FLASH/flash.c";
+			APP_SRC = "src/BSW/HAL/ESCI/esci.c";
+			APP_SRC = "src/BSW/HAL/PIT/PIT.c";
+			APP_SRC = "src/BSW/HAL/EMIOS/EMIOS.c";
+			APP_SRC = "src/BSW/HAL/EQADC/EQADC.c";
+//			CDD			
+			APP_SRC = "src/BSW/CDD/MC33926/CDD_MC33926.c";
+			APP_SRC = "src/BSW/CDD/MC33926/CDD_MC33926_Out.c";
+//			ETPU
+		/*  APP_SRC = "src/BSW/eTPU/cam/etpu_cam.c";
+			APP_SRC = "src/BSW/eTPU/crank/etpu_crank.c";
+			APP_SRC = "src/BSW/eTPU/fuel/etpu_fuel.c";
+			APP_SRC = "src/BSW/eTPU/spark/etpu_spark.c";
+			APP_SRC = "src/BSW/eTPU/knock/etpu_knock.c";
+			APP_SRC = "src/BSW/eTPU/tg/etpu_tg.c";
+			APP_SRC = "src/BSW/eTPU/util/etpu_util.c";
+			APP_SRC = "src/BSW/Cfg/ETPU/ETPU_Cfg.c";*/
+			
+//			Cfg
+			APP_SRC = "src/BSW/HAL/GPIO/GPIO_Cfg.c";
+			APP_SRC = "src/BSW/HAL/PIT/PIT_Cfg.c";
+			APP_SRC = "src/BSW/HAL/EMIOS/EMIOS_Cfg.c";
+			APP_SRC = "src/BSW/HAL/ESCI/ESCI_Cfg.c";
+			APP_SRC = "src/BSW/HAL/EQADC/EQADC_Out.c";
+			APP_SRC = "src/BSW/HAL/EQADC/EQADC_Cfg.c";
+
+
+//			XCP
+			APP_SRC = "src/BSW/COM/XCP/xcp_if.c";
+			APP_SRC = "src/BSW/COM/XCP/xcp_par.c";
+			APP_SRC = "src/BSW/COM/XCP/XcpBasic.c";
+			
+//			IL
+			APP_SRC = "src/IL/IL_An.c";
+			APP_SRC = "src/IL/IL_GPIO.c";
+			APP_SRC = "src/IL/IL_PWM.c";
+			
+//			ASW
+//			Sensors
+			APP_SRC = "src/ASW/Sensors/FAirIntk/FAirIntk.c";
+			APP_SRC = "src/ASW/Sensors/FAirIntk/FAirIntk_Out.c";
+			APP_SRC = "src/ASW/Sensors/TDev/NTC12_Cal.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TAirIntk/TAirIntk.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TAirIntk/TAirIntk_Out.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TEngClt/TEngClt_Out.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TEngClt/TEngClt.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TEngOil/TEngOil_Out.c";
+			APP_SRC = "src/ASW/Sensors/TDev/TEngOil/TEngOil.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PEngOil/PEngOil.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PEngOil/PEngOil_Out.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PAirIntk/PAirIntk.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PAirIntk/PAirIntk_Out.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PFuRail/PFuRail.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PFuRail/PFuRail_Out.c";			
+			APP_SRC = "src/ASW/Sensors/PDev/PBrkServo/PBrkServo.c";
+			APP_SRC = "src/ASW/Sensors/PDev/PBrkServo/PBrkServo_Out.c";		
+			APP_SRC = "src/ASW/Sensors/RIntkThr/RIntkThr.c";
+			APP_SRC = "src/ASW/Sensors/RIntkThr/RIntkThr_Out.c";
+			APP_SRC = "src/ASW/Sensors/RTrbVtgPos/RTrbVtgPos.c";
+			APP_SRC = "src/ASW/Sensors/RTrbVtgPos/RTrbVtgPos_Out.c";
+
+
+//			Actuators			
+			APP_SRC = "src/ASW/Actuators/TrbChgVtgActr/TrbChgVtgActr.c";
+			APP_SRC = "src/ASW/Actuators/TrbChgVtgActr/TrbChgVtgActr_Out.c";
+							
+//			Ignition
+//			APP_SRC = "src/ASW/IGN/IgnGov.c";
+//			APP_SRC = "src/ASW/IGN/IgnGov_Out.c";		
+			
+			//Utils
+			APP_SRC = "src/Utils/Ifl.c";
+			APP_SRC = "src/Utils/Ifx.c";
+						
+			MULTI_STACK = TRUE{
+				IRQ_STACK = TRUE 
+				{
+					SYS_SIZE=0x400;
+				};
+			};				
+
+			VLE = TRUE;
+		};
+
+		MCU_DATA = PPCE200ZX {
+			MODEL = MPC5644A;
+		};
+		
+		STATUS = EXTENDED;
+		STARTUPHOOK = TRUE;
+		ERRORHOOK = FALSE;
+		SHUTDOWNHOOK = FALSE;
+		PRETASKHOOK = TRUE;
+		POSTTASKHOOK = FALSE;
+		USEGETSERVICEID = FALSE;
+		USEPARAMETERACCESS = FALSE;
+		USERESSCHEDULER = FALSE;
+
+		KERNEL_TYPE = ECC2;
+
+		ORTI_SECTIONS = ALL;
+    };
+
+	//Counters
+	
+	COUNTER system_timer {
+	    MINCYCLE = 1;
+	    MAXALLOWEDVALUE = 2147483647;
+	    TICKSPERBASE = 1;
+	    TYPE = HARDWARE {
+	      DEVICE = "DECREMENTER";
+	      SYSTEM_TIMER = TRUE;
+	    };
+	    SECONDSPERTICK = 0.001; // 1ms timer
+	    CPU_ID = "default_cpu";
+	};
+
+
+	
+	//Alarms
+
+	ALARM Alarm_1ms {
+		COUNTER = system_timer;
+		ACTION = ACTIVATETASK { TASK = Task_1ms; };
+		AUTOSTART = TRUE { ALARMTIME = 1; CYCLETIME = 1;};
+	};
+	
+	ALARM Alarm_20ms {
+		COUNTER = system_timer;
+		ACTION = ACTIVATETASK { TASK = Task_20ms; };
+		AUTOSTART = TRUE { ALARMTIME = 2; CYCLETIME = 20;};
+	};	
+	
+	ALARM Alarm_100ms {
+		COUNTER = system_timer;
+		ACTION = ACTIVATETASK { TASK = Task_100ms; };
+		AUTOSTART = TRUE { ALARMTIME = 5; CYCLETIME = 100;};
+	};
+	
+	ALARM Alarm_Timeout {
+		COUNTER = system_timer;
+		ACTION = SETEVENT {TASK = Task_AngleSync; EVENT = Event_Timeout;};
+		AUTOSTART = FALSE;
+	};
+	
+	ALARM Alarm_10ms {
+		COUNTER = system_timer;
+		ACTION = SETEVENT { TASK = Task_Xcp; EVENT = Event_XCP_10ms; };
+		AUTOSTART = TRUE { ALARMTIME = 3; CYCLETIME = 10;};
+	};
+	//Tasks declaration
+	//Periodic(BCC) Tasks
+    TASK Task_1ms {
+		PRIORITY = 0x06;
+		SCHEDULE = NON;
+		AUTOSTART = FALSE;
+		STACK = SHARED;
+		ACTIVATION = 1;    /* only one pending activation */
+		RESOURCE = AsyncAccess;
+	};	
+	
+    TASK Task_20ms {
+		PRIORITY = 0x04;   /* High priority */
+		SCHEDULE = FULL;
+		AUTOSTART = FALSE;	
+		STACK = SHARED;
+    };
+
+    TASK Task_100ms {
+		PRIORITY = 0x03;   /* High priority */
+		SCHEDULE = FULL;
+		AUTOSTART = FALSE;	
+		STACK = SHARED;
+    };
+    
+    //Event Driven(ECC) Tasks
+    TASK Task_AngleSync {
+		PRIORITY = 0x05;   /* High priority */
+		SCHEDULE = FULL;
+		AUTOSTART = TRUE;	
+		STACK = PRIVATE {
+			SYS_SIZE = 1024;
+		};
+		EVENT = Event_AngleSync;
+		EVENT = Event_Timeout;
+		RESOURCE = AsyncAccess;
+    };
+    
+    TASK Task_Xcp {
+		PRIORITY = 0x02;   /* High priority */
+		SCHEDULE = FULL;
+		AUTOSTART = TRUE;	
+		STACK = PRIVATE {
+			SYS_SIZE = 1024;
+		};
+		EVENT = Event_XCP_1ms;
+		EVENT = Event_XCP_10ms;
+		EVENT = Event_XCP_100ms;
+		EVENT = Event_XCP_ASync;
+    };
+    
+    TASK Task_CalFlash {
+		PRIORITY = 0x01;   /* High priority */
+		SCHEDULE = FULL;
+		AUTOSTART = FALSE;	
+		STACK = PRIVATE {
+			SYS_SIZE = 256;
+		};
+    };
+
+	//Events declaration
+    EVENT Event_XCP_1ms 	{ MASK = AUTO; };
+    EVENT Event_XCP_10ms	{ MASK = AUTO; };
+    EVENT Event_XCP_100ms	{ MASK = AUTO; };
+    EVENT Event_XCP_ASync	{ MASK = AUTO; };
+    EVENT Event_AngleSync	{ MASK = AUTO; };
+	EVENT Event_Timeout		{ MASK = AUTO; };
+
+    ISR Xcp_RxStartIsr {
+		CATEGORY = 2;
+		PRIORITY = 2;
+		ENTRY = "146";
+	};
+    ISR Xcp_TxStopIsr {
+		CATEGORY = 2;
+		PRIORITY = 2;
+		ENTRY = "29";
+	};
+    ISR Xcp_RxStopIsr {
+		CATEGORY = 2;
+		PRIORITY = 2;
+		ENTRY = "30";
+	};
+	RESOURCE AsyncAccess{
+		RESOURCEPROPERTY = STANDARD;
+	};
+};

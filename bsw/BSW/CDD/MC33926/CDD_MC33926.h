@@ -1,0 +1,19 @@
+#ifndef MC33926_H_
+#define MC33926_H_
+#include "Std_Types.h"
+
+#define CDD_MC33926_PWMPERIOD_TICKS 50000L
+#define CDD_MC33926_PWM_MAX 100
+
+#define EMIOS_HBRIDGE_IN1_CHN 1
+#define PAD_HBRIDGE_IN1 180
+#define PAD_HBRIDGE_IN2 179
+#define PAD_HBRIDGE_INV 116
+#define PAD_HBRIDGE_SLEW 117
+#define PAD_HBRIDGE_SF 118
+#define PAD_HBRIDGE_D1 114
+
+void CDD_MC33926_Init(void);
+void CDD_MC33926_PwmCtrl(void);
+
+#endif /*MC33926_H_*/
