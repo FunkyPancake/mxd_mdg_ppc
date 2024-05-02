@@ -15,7 +15,7 @@
 #include "Std_Types.h"
 #include "XcpBasic.h"
 #include "esci.h"
-#include "eecfg.h"
+#include "../../../os/eecfg.h"
 #include "ee.h"
 
 #define XCP_PACKET_CHECKSUM

@@ -1,3 +1,5 @@
+/*build*
+/.idea
 Debug/obj/*
 .vscode/*
 Debug/ppc.elf
