@@ -12,17 +12,16 @@ RUN apt-get autoclean -y
 RUN apt-get autoremove -y
 RUN apt-get clean
 
-FROM toolchain as ppc_sdk
-RUN wget -O gcc.zip https://github.com/FunkyPancake/mxd_mdg_ppc/releases/download/toolchain-r1.0.0/gcc-4.9.4-Ee200-eabivle-x86_64-linux-g2724867.zip
+FROM toolchain as sdk
+RUN wget -O build_tools.tar.xz https://github.com/FunkyPancake/mxd_mdg_ppc/releases/download/buildtools-v1.0.0/build_tools.tar.xz
 RUN mkdir -p /opt/ppc/sdk
-RUN unzip ./gcc.zip -d /opt/ppc/sdk
+RUN tar -xJf build_tools.tar.xz -C /opt/ppc/sdk && rm ./build_tools.tar.xz
 RUN ls /opt/ppc/sdk
-ENV SDK_SYSROOT="/opt/ppc/sdk/powerpc-eabivle-4_9"
-ENV PATH="${PATH}:${SDK_SYSROOT}/bin/"
+ENV SDK_SYSROOT="/opt/ppc/sdk/build_tools"
+ENV PATH="${PATH}:${SDK_SYSROOT}/powerpc-eabivle-4_9/bin/"
 ENV CC="powerpc-eabivle-gcc"
 ENV CXX="powerpc-eabivle-g++"
 ENV CPP="powerpc-eabivle-gcc"
 ENV AS="powerpc-eabivle-as"
-ENV LD="powerpc-eabivle-ld --sysroot=${SDK_SYSROOT}"
+ENV LD="powerpc-eabivle-ld"
 ENV CROSS_COMPILE="powerpc-eabivle-"
-
