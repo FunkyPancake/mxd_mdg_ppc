@@ -1,0 +1,3 @@
+[submodule "mxd_mdg_ecsw"]
+	path = mxd_mdg_ecsw
+	url = git@github.com:FunkyPancake/mxd_mdg_ecsw.git
