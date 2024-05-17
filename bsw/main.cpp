@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-//extern void xcptn_xmpl(void);
+extern void xcptn_xmpl(void);
 
 #ifdef __cplusplus
 }
@@ -34,7 +34,7 @@ int main()
 {
 	counterclass myccounter;
 
-//    xcptn_xmpl ();              /* Configure and Enable Interrupts */
+    xcptn_xmpl ();              /* Configure and Enable Interrupts */
 
     /* Loop forever */
 	for(;;) {	

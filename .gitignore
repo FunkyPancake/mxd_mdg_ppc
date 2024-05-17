@@ -12,5 +12,6 @@ Debug/system.orti
 *.a
 *.cmm
 *.men
+*.html
 Debug/exec_lauterbach.sh
 Debug/make_launcher.bat

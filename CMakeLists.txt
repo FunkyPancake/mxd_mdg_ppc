@@ -56,6 +56,6 @@ add_subdirectory(bsw)
 add_subdirectory(mxd_mdg_ecsw)
 
 #target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -nostdlib -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb  -T Ke16F256.ld)
-target_link_options(${TARGET_NAME} PRIVATE -T ${CMAKE_SOURCE_DIR}/linker/56xx_flash.ld)
+target_link_options(${TARGET_NAME} PRIVATE  -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -T ${CMAKE_SOURCE_DIR}/linker/56xx_flash.ld)
 set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}.elf)
 target_link_libraries(${TARGET_NAME} PRIVATE startup)
