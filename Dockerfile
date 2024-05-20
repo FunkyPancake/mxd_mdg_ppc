@@ -7,7 +7,7 @@ LABEL authors="FunkyPancake"
 FROM ubuntu as toolchain
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y build-essential gcc git make cmake \
-gdb gcc-multilib wget unzip gdb
+gdb gcc-multilib wget unzip
 RUN apt-get autoclean -y
 RUN apt-get autoremove -y
 RUN apt-get clean
@@ -25,3 +25,4 @@ ENV CPP="powerpc-eabivle-gcc"
 ENV AS="powerpc-eabivle-as"
 ENV LD="powerpc-eabivle-ld"
 ENV CROSS_COMPILE="powerpc-eabivle-"
+ENV GDB="powerpc-eabivle-gdb"
