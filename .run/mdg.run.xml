@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="mdg" type="com.jetbrains.cidr.embedded.customgdbserver.type" factoryName="com.jetbrains.cidr.embedded.customgdbserver.factory" nameIsGenerated="true" PROGRAM_PARAMS="-device=MPC5644A -startserver -singlesession -serverport=7224 -gdbmiport=6224 -interface=USBMULTILINK -speed=5000 -port=USB1 -streamingport=10224" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mdg" TARGET_NAME="mdg" CONFIG_NAME="Debug-ppc_gcc" version="1" RUN_TARGET_PROJECT_NAME="mdg" RUN_TARGET_NAME="mdg">
+    <custom-gdb-server version="1" gdb-connect="localhost:7224" executable="C:\tools\nxp\S32DS_Power_v2.1\eclipse\plugins\com.pemicro.debug.gdbjtag.ppc_2.0.5.202210261806\win32\pegdbserver_power_console.exe" warmup-ms="0" download-type="UPDATED_ONLY" reset-cmd="monitor reset" reset-type="AFTER_DOWNLOAD">
+      <debugger kind="GDB">C:\tools\nxp\S32DS_Power_v2.1\S32DS\build_tools\powerpc-eabivle-4_9\bin\powerpc-eabivle-gdb.exe</debugger>
+    </custom-gdb-server>
+    <method v="2">
+      <option name="CLION.COMPOUND.BUILD" enabled="true" />
+    </method>
+  </configuration>
+</component>
