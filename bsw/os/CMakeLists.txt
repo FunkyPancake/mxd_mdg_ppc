@@ -14,7 +14,7 @@ target_sources(${TARGET_NAME}
         FreeRTOS/timers.c
         FreeRTOS/portable/Common/mpu_wrappers.c
         FreeRTOS/portable/GCC/PowerPC/port.c
-        FreeRTOS/portable/GCC/PowerPC/portasm.s
+        FreeRTOS/portable/GCC/PowerPC/portasm.S
         FreeRTOS/portable/GCC/PowerPC/porttimer.c
         FreeRTOS/portable/MemMang/heap_4.c
 )
@@ -26,4 +26,4 @@ target_include_directories(${TARGET_NAME}
         ${CMAKE_SOURCE_DIR}/nxp/platform/devices
         ${CMAKE_SOURCE_DIR}/nxp/platform/drivers/inc
 )
-set_property(SOURCE FreeRTOS/portable/GCC/PowerPC/portasm.s APPEND PROPERTY COMPILE_OPTIONS "-x" "assembler-with-cpp" "-mregnames")
+set_property(SOURCE FreeRTOS/portable/GCC/PowerPC/portasm.S APPEND PROPERTY COMPILE_OPTIONS "-x" "assembler-with-cpp")

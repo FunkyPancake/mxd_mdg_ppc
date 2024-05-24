@@ -15,7 +15,6 @@ target_include_directories(${TARGET_NAME}
         PUBLIC
         bsw/Project_Headers
 )
-set(COMPILE_OPTIONS)
 target_compile_options(${TARGET_NAME} PRIVATE
         -O0 -mcpu=e200z4 -Wall -mbig -mvle -mregnames
         #        -specs=nano.specs
@@ -35,34 +34,29 @@ target_compile_options(${TARGET_NAME} PRIVATE
 #        -fno-builtin -fno-exceptions -fmerge-constants -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 #         -specs=nano.specs)
 #
-set(COMPILE_DEF
+
+
+target_compile_definitions(${TARGET_NAME}
+        PRIVATE
+        COMPILE_DEF
         MPC564xA
         E200Z4
         I_CACHE
         DISABLE_SWT
         SPE_ENABLE
         START_FROM_FLASH
+        USING_OS_FREERTOS
+        CPU_MPC5746R
 )
 
-target_compile_definitions(${TARGET_NAME}
-        PRIVATE
-        ${COMPILE_DEF}
-        #        FSL_RTOS_FREE_RTOS
-        #        SDK_OS_FREE_RTOS
-        #        SDK_DEBUGCONSOLE=1
-        #        __MCUXPRESSO
-        #        __USE_CMSIS
-        #        NDEBUG
-        #        __NEWLIB__
-)
+target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -T ${CMAKE_SOURCE_DIR}/linker/56xx_flash.ld)
+set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}.elf)
+target_link_libraries(${TARGET_NAME} PRIVATE mxd_mdg_ecsw )
+
 
 add_subdirectory(bsw)
 add_subdirectory(mxd_mdg_ecsw)
 #add_subdirectory(nxp)
-
-target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -T ${CMAKE_SOURCE_DIR}/linker/56xx_flash.ld)
-set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}.elf)
-#target_link_libraries(${TARGET_NAME} PRIVATE startup)
 
 
 add_custom_command(TARGET ${TARGET_NAME}
